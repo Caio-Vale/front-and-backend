@@ -1,9 +1,14 @@
 import { listarTarefas,buscarPorUsuario, obterTarefasComUsuario } from './services/tarefaService.js';
 import express from 'express';
+import cors from 'cors';
 import './models/associations.js'; // Obrigatório para o JOIN com 'criador' funcionar
 import tarefaRoutes from './routers/tarefaRoutes.js';
 
 const app = express();
+
+
+app.use(cors());
+
 app.use(express.json());
 
 app.use(tarefaRoutes);
@@ -25,23 +30,23 @@ async function iniciarServidor() {
 
 iniciarServidor();
 
-async function testarConsultas() {
-  try {
-    console.log('--- 1. Todas as tarefas ---');
-    const todas = await listarTarefas();
-    console.log(todas);
+// async function testarConsultas() {
+//   try {
+//     console.log('--- 1. Todas as tarefas ---');
+//     const todas = await listarTarefas();
+//     console.log(todas);
 
-    console.log('\n--- 2. Tarefas do usuário 1 ---');
-    const doUsuario = await buscarPorUsuario(1);
-    console.log(doUsuario);
+//     console.log('\n--- 2. Tarefas do usuário 1 ---');
+//     const doUsuario = await buscarPorUsuario(1);
+//     console.log(doUsuario);
 
-    console.log('\n--- 3. Tarefas com nome do usuário (JOIN) ---');
-    const comUsuario = await obterTarefasComUsuario();
-    console.log(comUsuario);
+//     console.log('\n--- 3. Tarefas com nome do usuário (JOIN) ---');
+//     const comUsuario = await obterTarefasComUsuario();
+//     console.log(comUsuario);
 
-  } catch (erro) {
-    console.error('Erro ao executar consulta:', erro);
-  }
-}
+//   } catch (erro) {
+//     console.error('Erro ao executar consulta:', erro);
+//   }
+// }
 
 //testarConsultas();

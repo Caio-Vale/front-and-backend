@@ -38,3 +38,29 @@ export const listarTarefasSequelize = async () => {
     }]
   });
 };
+
+export const criarTarefaSequelize = async ({ titulo, concluido, criadorId }) => {
+  // Nota: Confirme no seu model Tarefa se a chave estrangeira se chama 'criadorId' ou 'usuarioId'
+  const novaTarefa = await Tarefa.create({
+    titulo,
+    concluido: concluido ?? false,
+    usuario_id: Number(criadorId) 
+  });
+  return novaTarefa;
+};
+
+export const atualizarTarefaSequelize = async (id, dados) => {
+  const tarefa = await Tarefa.findByPk(id);
+  if (!tarefa) return null;
+  
+  await tarefa.update(dados);
+  return tarefa;
+};
+
+export const deletarTarefaSequelize = async (id) => {
+  const tarefa = await Tarefa.findByPk(id);
+  if (!tarefa) return false;
+  
+  await tarefa.destroy();
+  return true;
+};
