@@ -1,0 +1,11 @@
+npm init -y
+
+npm i pg 
+
+npm i sequelize pg pg-hstore   //3 pacotes diferentes
+
+npm i cors
+
+npm i express
+
+npm i dotenv
